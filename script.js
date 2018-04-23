@@ -10,8 +10,8 @@ var x = ctx.canvas.width/2;
 var y = ctx.canvas.height - 30;
 var dx = 2;
 var dy = -2;
-var xDirectioner;
-var yDirectioner;
+var xDirectioner = 1;
+var yDirectioner = 1;
 var ballRadius = 10;
 
 var rightPressed = false;
@@ -19,7 +19,7 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 
-var pressedSpeed = 5;
+var pressedSpeed = 7;
 
 function drawBall() {
     ctx.beginPath();
@@ -33,12 +33,13 @@ function draw() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     drawBall();
     
-    if(x + dx > ctx.canvas.width-ballRadius || x + dx < ballRadius)
-        dx = -dx;
-    
-    if(y + dy > ctx.canvas.height-ballRadius || y + dy < ballRadius)
-        dy = -dy;
-
+    if(x + dx > ctx.canvas.width-ballRadius || x + dx < ballRadius){
+        xDirectioner = -xDirectioner;
+    }
+    if(y + dy > ctx.canvas.height-ballRadius || y + dy < ballRadius){
+        yDirectioner = -yDirectioner;
+    }
+   
     if(leftPressed && x - pressedSpeed - ballRadius > 0){
         xDirectioner = -1;
         x -= pressedSpeed;
@@ -47,15 +48,17 @@ function draw() {
         xDirectioner = 1;
         x += pressedSpeed;
     }
-    else if(upPressed && y + pressedSpeed + ballRadius < ctx.canvas.height){
-        yDirectioner = 1;
-        y += pressedspeed;
-    }
-    else if(downPressed && y - pressedSpeed - ballRadius > 0){
-        yDirectioner = -1;
+    else if(upPressed && y + pressedSpeed - ballRadius >= 0){
+        yDirectioner = +1;
         y -= pressedSpeed;
     }
+    else if(downPressed && y - pressedSpeed + ballRadius <= ctx.canvas.height){
+        yDirectioner = 1;
+        y += pressedSpeed;
+    }
+    
 
+    console.log(y);
     x = x + xDirectioner*dx;
     y = y + yDirectioner*dy;
 }
@@ -77,6 +80,7 @@ function keyDownHandler(e) {
         downPressed = true;
     }
 }
+
 function keyUpHandler(e) {
     if(e.keyCode == 39) {
         rightPressed = false;
