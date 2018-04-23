@@ -1,15 +1,25 @@
+//Created by Szymon Lichoń 
+//23.04.2018
+
 var ctx = document.getElementById('myCanvas').getContext('2d');
     ctx.canvas.width = innerWidth - 100;
     ctx.canvas.height = innerHeight - 100;
+
 
 var x = ctx.canvas.width/2;
 var y = ctx.canvas.height - 30;
 var dx = 2;
 var dy = -2;
+var xDirectioner;
+var yDirectioner;
 var ballRadius = 10;
+
 var rightPressed = false;
 var leftPressed = false;
+var upPressed = false;
+var downPressed = false;
 
+var pressedSpeed = 5;
 
 function drawBall() {
     ctx.beginPath();
@@ -29,8 +39,59 @@ function draw() {
     if(y + dy > ctx.canvas.height-ballRadius || y + dy < ballRadius)
         dy = -dy;
 
-    x += dx;
-    y += dy;
+    if(leftPressed && x - pressedSpeed - ballRadius > 0){
+        xDirectioner = -1;
+        x -= pressedSpeed;
+    }
+    else if(rightPressed && x + pressedSpeed + ballRadius < ctx.canvas.width){
+        xDirectioner = 1;
+        x += pressedSpeed;
+    }
+    else if(upPressed && y + pressedSpeed + ballRadius < ctx.canvas.height){
+        yDirectioner = 1;
+        y += pressedspeed;
+    }
+    else if(downPressed && y - pressedSpeed - ballRadius > 0){
+        yDirectioner = -1;
+        y -= pressedSpeed;
+    }
+
+    x = x + xDirectioner*dx;
+    y = y + yDirectioner*dy;
 }
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+    else if(e.keyCode == 38) {
+        upPressed = true;
+    }
+    else if(e.keyCode == 40){
+        downPressed = true;
+    }
+}
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
+    else if(e.keyCode == 38) {
+        upPressed = false;
+    }
+    else if(e.keyCode == 40){
+        downPressed = false;
+    }
+}
+
+
 
 setInterval(draw,10);
