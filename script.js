@@ -8,8 +8,8 @@ var ctx = document.getElementById('myCanvas').getContext('2d');
 
 var x = ctx.canvas.width/2;
 var y = ctx.canvas.height - 30;
-var dx = 2;
-var dy = -2;
+var dx = 3;
+var dy = 3;
 var xDirectioner = 1;
 var yDirectioner = 1;
 var ballRadius = 10;
@@ -33,26 +33,26 @@ function draw() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     drawBall();
     
-    if(x + dx > ctx.canvas.width-ballRadius || x + dx < ballRadius){
+    if(x + dx >= ctx.canvas.width-ballRadius || x + dx <= ballRadius){
         xDirectioner = -xDirectioner;
     }
-    if(y + dy > ctx.canvas.height-ballRadius || y + dy < ballRadius){
+    if(y + dy >= ctx.canvas.height-ballRadius || y + dy <= ballRadius){
         yDirectioner = -yDirectioner;
     }
-   
+    
     if(leftPressed && x - pressedSpeed - ballRadius > 0){
         xDirectioner = -1;
         x -= pressedSpeed;
     }
-    else if(rightPressed && x + pressedSpeed + ballRadius < ctx.canvas.width){
+    else if(rightPressed && x + pressedSpeed + ballRadius < ctx.canvas.width-4){
         xDirectioner = 1;
         x += pressedSpeed;
     }
-    else if(upPressed && y + pressedSpeed - ballRadius >= 0){
-        yDirectioner = +1;
+    else if(upPressed && y - pressedSpeed - ballRadius > 0){
+        yDirectioner = -1;
         y -= pressedSpeed;
     }
-    else if(downPressed && y - pressedSpeed + ballRadius <= ctx.canvas.height){
+    else if(downPressed && y + pressedSpeed + ballRadius < ctx.canvas.height-4){
         yDirectioner = 1;
         y += pressedSpeed;
     }
