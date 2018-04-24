@@ -36,6 +36,9 @@ var time = 180;
 var last=1000;
 var curr;
 var max1, max2, max3 = -Infinity;
+max1 = -Infinity;
+max2 = -Infinity;
+max3 = -Infinity;
 var p1, p2, p3;
 
 function startGame(){
@@ -172,8 +175,24 @@ function stageHandler(){
         stage++;
     }
     if(time==0){
+        
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         window.alert("Koniec gry!");
-        if()
+        if(points>max1){
+            max1 = points;
+            p1 = person;
+        }
+        else if(points>max2){
+            max2 = points;
+            p2 = person;
+        }
+        else if(points > max3){
+            max3 = points;
+            p3 = person;
+        }
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+
     }
 }
 
@@ -235,6 +254,17 @@ function draw() {
                     <tr>\
                         <td>" +time+"    \
                         <td>" +players.get(person)+ "\
+                        <td>"+p1 +"  " + max1 +"\
+                    </tr>\
+                    <tr>\
+                        <td>\
+                        <td>\
+                        <td>"+p2+"  "+max2+"\
+                    </tr>\
+                    <tr>\
+                        <td>\
+                        <td>\
+                        <td>"+p3+"  "+max3+"\
                     </tr>"
     
 }
