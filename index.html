@@ -6,11 +6,39 @@
     <style>
     	* { padding: 0; margin: 100; }
     	canvas { background: #eee; display: block; margin: 0 auto; }
+   
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
     </style>
 </head>
 <body>
 
-<canvas id="myCanvas" width="480" height="320"></canvas>
+<canvas id="myCanvas"></canvas>
+
+<Table id="tab">
+    <tr>
+        <th>Czas</th>
+        <th>Punkty</th>
+        <th>Rekordy</th>
+    </tr>
+    <tr>
+
+    </tr>
+</Table>
 
 <script src="script.js">
 	
