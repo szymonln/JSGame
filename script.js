@@ -32,7 +32,7 @@ var width = 60;
 var players = new Map();
 var person;
 var points = 0;
-var time = 180;
+var time;
 var last=1000;
 var curr;
 var max1, max2, max3 = -Infinity;
@@ -46,7 +46,8 @@ function startGame(){
     players.set(person, points);
 
     rectNumber = prompt("Podaj ilosc prostokatow:");
-    
+    time = 5;
+    stage = 1;
     pressedSpeed=dx+2;
 
     delay = prompt("Podaj predkosc zmian licznika: ");
@@ -190,8 +191,7 @@ function stageHandler(){
             max3 = points;
             p3 = person;
         }
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
+        startGame();
 
     }
 }
